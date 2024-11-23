@@ -1,6 +1,6 @@
 # flake.nix
 #
-# This file packages licdata-artifact-events as a Nix flake.
+# This file packages acmsl-licdata-artifact-events as a Nix flake.
 #
 # Copyright (C) 2024-today acm-sl's Licdata Artifact Events
 #
@@ -17,21 +17,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {
-  description = "Nix flake for acmsl/licdata-artifact-events";
+  description = "Nix flake for acmsl/acmsl-licdata-artifact-events";
   inputs = rec {
     nixos.url = "github:NixOS/nixpkgs/24.05";
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
     pythoneda-shared-pythonlang-banner = {
       inputs.nixos.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
-      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.63";
+      url = "github:pythoneda-shared-pythonlang-def/banner/0.0.68";
     };
     pythoneda-shared-pythonlang-domain = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixos.follows = "nixos";
       inputs.pythoneda-shared-pythonlang-banner.follows =
         "pythoneda-shared-pythonlang-banner";
-      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.77";
+      url = "github:pythoneda-shared-pythonlang-def/domain/0.0.82";
     };
   };
   outputs = inputs:
@@ -40,8 +40,8 @@
       let
         org = "acmsl";
         repo = "licdata-artifact-events";
-        version = "0.0.2";
-        sha256 = "058chc3p114b7bkkcaiy2ghv7mlnc2vn5s0c8s4xzp4l6w0lmync";
+        version = "0.0.3";
+        sha256 = "0ks2rdf46nps32w02jbplixp36iccmrafx947mzfl6sa3jyd3v2n";
         pname = "${org}-${repo}";
         pythonpackage = "org.acmsl.artifact.events.licdata";
         package = builtins.replaceStrings [ "." ] [ "/" ] pythonpackage;
@@ -57,7 +57,7 @@
         nixpkgsRelease =
           builtins.replaceStrings [ "\n" ] [ "" ] "nixos-${nixosVersion}";
         shared = import "${pythoneda-shared-pythonlang-banner}/nix/shared.nix";
-        licdata-artifact-events-for = { python
+        acmsl-licdata-artifact-events-for = { python
           , pythoneda-shared-pythonlang-banner
           , pythoneda-shared-pythonlang-domain}:
           let
@@ -127,45 +127,45 @@
       in rec {
         apps = rec {
           default = licdata-default;
-          licdata-artifact-events-default = licdata-artifact-events-python312;
-          licdata-artifact-events-python38 = shared.app-for {
+          acmsl-licdata-artifact-events-default = acmsl-licdata-artifact-events-python312;
+          acmsl-licdata-artifact-events-python38 = shared.app-for {
             package =
-              self.packages.${system}.licdata-artifact-events-python38;
+              self.packages.${system}.acmsl-licdata-artifact-events-python38;
             inherit entrypoint;
           };
-          licdata-artifact-events-python39 = shared.app-for {
+          acmsl-licdata-artifact-events-python39 = shared.app-for {
             package =
-              self.packages.${system}.licdata-artifact-events-python39;
+              self.packages.${system}.acmsl-licdata-artifact-events-python39;
             inherit entrypoint;
           };
-          licdata-artifact-events-python310 = shared.app-for {
+          acmsl-licdata-artifact-events-python310 = shared.app-for {
             package =
-              self.packages.${system}.licdata-artifact-events-python310;
+              self.packages.${system}.acmsl-licdata-artifact-events-python310;
             inherit entrypoint;
           };
-          licdata-artifact-events-python311 = shared.app-for {
+          acmsl-licdata-artifact-events-python311 = shared.app-for {
             package =
-              self.packages.${system}.licdata-artifact-events-python311;
+              self.packages.${system}.acmsl-licdata-artifact-events-python311;
             inherit entrypoint;
           };
-          licdata-artifact-events-python312 = shared.app-for {
+          acmsl-licdata-artifact-events-python312 = shared.app-for {
             package =
-              self.packages.${system}.licdata-artifact-events-python312;
+              self.packages.${system}.acmsl-licdata-artifact-events-python312;
             inherit entrypoint;
           };
         };
         defaultApp = apps.default;
         defaultPackage = packages.default;
         devShells = rec {
-          default = licdata-artifact-events-python312;
-          licdata-artifact-events-python38 =
+          default = acmsl-licdata-artifact-events-python312;
+          acmsl-licdata-artifact-events-python38 =
             shared.devShell-for {
               banner = "${
                   pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38
                 }/bin/banner.sh";
               extra-namespaces = "org";
               nixpkgs-release = nixpkgsRelease;
-              package = packages.licdata-artifact-events-python38;
+              package = packages.acmsl-licdata-artifact-events-python38;
               python = pkgs.python38;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38;
@@ -173,7 +173,7 @@
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python38;
               inherit archRole layer org pkgs repo space;
             };
-          licdata-artifact-events-python39 =
+          acmsl-licdata-artifact-events-python39 =
             shared.devShell-for {
               banner = "${
                   pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python39
@@ -181,7 +181,7 @@
               extra-namespaces = "org";
               nixpkgs-release = nixpkgsRelease;
               package =
-                packages.licdata-artifact-events-python39;
+                packages.acmsl-licdata-artifact-events-python39;
               python = pkgs.python39;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python39;
@@ -189,7 +189,7 @@
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python39;
               inherit archRole layer org pkgs repo space;
             };
-          licdata-artifact-events-python310 =
+          acmsl-licdata-artifact-events-python310 =
             shared.devShell-for {
               banner = "${
                   pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python310
@@ -197,7 +197,7 @@
               extra-namespaces = "org";
               nixpkgs-release = nixpkgsRelease;
               package =
-                packages.licdata-artifact-events-python310;
+                packages.acmsl-licdata-artifact-events-python310;
               python = pkgs.python310;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python310;
@@ -205,7 +205,7 @@
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python310;
               inherit archRole layer org pkgs repo space;
             };
-          licdata-artifact-events-python311 =
+          acmsl-licdata-artifact-events-python311 =
             shared.devShell-for {
               banner = "${
                   pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python311
@@ -213,7 +213,7 @@
               extra-namespaces = "org";
               nixpkgs-release = nixpkgsRelease;
               package =
-                packages.licdata-artifact-events-python311;
+                packages.acmsl-licdata-artifact-events-python311;
               python = pkgs.python311;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python311;
@@ -221,7 +221,7 @@
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python311;
               inherit archRole layer org pkgs repo space;
             };
-          licdata-artifact-events-python312 =
+          acmsl-licdata-artifact-events-python312 =
             shared.devShell-for {
               banner = "${
                   pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312
@@ -229,7 +229,7 @@
               extra-namespaces = "org";
               nixpkgs-release = nixpkgsRelease;
               package =
-                packages.licdata-artifact-events-python312;
+                packages.acmsl-licdata-artifact-events-python312;
               python = pkgs.python312;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
@@ -239,41 +239,41 @@
             };
         };
         packages = rec {
-          default = licdata-artifact-events-python312;
-          licdata-artifact-events-python38 =
-            pythoneda-licdata-artifact-events-for {
+          default = acmsl-licdata-artifact-events-python312;
+          acmsl-licdata-artifact-events-python38 =
+            pythoneda-acmsl-licdata-artifact-events-for {
               python = pkgs.python38;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python38;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python38;
             };
-          licdata-artifact-events-python39 =
-            licdata-artifact-events-for {
+          acmsl-licdata-artifact-events-python39 =
+            acmsl-licdata-artifact-events-for {
               python = pkgs.python39;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python39;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python39;
             };
-          licdata-artifact-events-python310 =
-            licdata-artifact-events-for {
+          acmsl-licdata-artifact-events-python310 =
+            acmsl-licdata-artifact-events-for {
               python = pkgs.python310;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python310;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python310;
             };
-          licdata-artifact-events-python311 =
-            licdata-artifact-events-for {
+          acmsl-licdata-artifact-events-python311 =
+            acmsl-licdata-artifact-events-for {
               python = pkgs.python311;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python311;
               pythoneda-shared-pythonlang-domain =
                 pythoneda-shared-pythonlang-domain.packages.${system}.pythoneda-shared-pythonlang-domain-python311;
             };
-          licdata-artifact-events-python312 =
-            licdata-artifact-events-for {
+          acmsl-licdata-artifact-events-python312 =
+            acmsl-licdata-artifact-events-for {
               python = pkgs.python312;
               pythoneda-shared-pythonlang-banner =
                 pythoneda-shared-pythonlang-banner.packages.${system}.pythoneda-shared-pythonlang-banner-python312;
